@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="PhetpriReport — Final Pitching: ภาพรวมระบบ ปัญหาเดิม ฟีเจอร์หลัก หน้าจอระบบจริง ผลทดสอบ Real-Time GPS และการสาธิต">
+  <title>PhetpriReport — Final Pitching &amp; Live Demo</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/kanit-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="redesign.css?v=12">
+  <link rel="stylesheet" href="product.css?v=2">
+  <link rel="stylesheet" href="final-pitching.css?v=2">
+  <script defer src="webgl.js"></script>
+  <script defer src="examples.js?v=1"></script>
+  <script defer src="assets/final-three-scenes.bundle.js?v=3"></script>
+  <script defer src="product.js?v=3"></script>
+  <script defer src="gps.js?v=2"></script>
+  <script defer src="app.js?v=1"></script>
+</head>
+<body>
+  <a class="skip-link" href="#slides">ข้ามไปเนื้อหา</a>
+  <header class="masthead">
+    <a class="wordmark" href="#slide-1" aria-label="Phetpri Report กลับหน้าปก">Phetpri<span>Report</span> <small style="font-size:12px;color:#087f5b;font-weight:600;margin-left:8px;background:#eef7f2;padding:2px 8px;border-radius:6px;">FINAL PITCHING</small></a>
+    <nav class="utilities" aria-label="เครื่องมือการนำเสนอ">
+      <button type="button" id="contents-button" aria-haspopup="dialog">สารบัญ</button>
+      <span class="utility-divider" aria-hidden="true"></span>
+      <button type="button" id="fullscreen-button" aria-label="เปิดเต็มจอ">เต็มจอ <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button>
+    </nav>
+  </header>
+
+  <main id="slides" tabindex="-1" aria-label="สไลด์นำเสนอ PhetpriReport Final Pitching">
+
+    <!-- Slide 1: Cover -->
+    <section class="slide cover active" id="slide-1" data-title="หน้าแรก · PhetpriReport" aria-labelledby="title-1">
+      <canvas id="contour-canvas" aria-hidden="true"></canvas>
+      <div class="cover-copy">
+        <h1 id="title-1">แจ้งปัญหาสาธารณะ<br><span>ติดตามผลเรียลไทม์ถึงหน้างาน</span></h1>
+        <p class="cover-description">แพลตฟอร์มการแจ้งและติดตามปัญหาสาธารณะเทศบาลเมืองเพชรบุรี</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 24px;">
+          <span style="font-size:12px;background:#eef6f1;color:#087f5b;padding:6px 12px;border-radius:99px;font-weight:600;">01 Pain Points &amp; ภาพรวม</span>
+          <span style="font-size:12px;background:#eef6f1;color:#087f5b;padding:6px 12px;border-radius:99px;font-weight:600;">02 ฟีเจอร์หลัก &amp; หน้าจอจริง</span>
+          <span style="font-size:12px;background:#eef6f1;color:#087f5b;padding:6px 12px;border-radius:99px;font-weight:600;">03 Real-Time GPS Benchmark</span>
+          <span style="font-size:12px;background:#eef6f1;color:#087f5b;padding:6px 12px;border-radius:99px;font-weight:600;">04 Live Demo สาธิตระบบ</span>
+        </div>
+        <button class="primary start-button" type="button">เริ่มการนำเสนอ <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></button>
+      </div>
+      <aside class="speaker-note" hidden>สไลด์นำเสนอ Final Pitching สำหรับสรุปภาพรวมโครงการ จุดเด่นของระบบ ผลการทดสอบและ Optimize ความเร็ว GPS Real-Time ก่อนเข้าสู่การสาธิตระบบจริง</aside>
+    </section>
+
+    <!-- Slide 2: กระบวนการทำงานของระบบเดิม & Pain Points (Interactive Three.js 3D 6-Step Flow) -->
+    <section class="slide legacy-flow-slide" id="slide-2" data-title="กระบวนการทำงานระบบเดิม &amp; Pain Points" aria-labelledby="title-2">
+      <div class="slide-heading">
+        <p class="product-eyebrow">LEGACY WORKFLOW &amp; PAIN POINTS (6 STEPS)</p>
+        <h2 id="title-2">กระบวนการทำงานของระบบเดิม: ทำไมประชาชนถึงแจ้งยากและติดตามไม่ได้?</h2>
+        <p>จำลอง Flow การทำงานจริงของระบบเดิม 6 ขั้นตอน ตั้งแต่วิธีการแจ้งเรื่อง สมุดทะเบียน การเดินแฟ้มเอกสาร ไปจนถึงการซ่อมแซม</p>
+      </div>
+
+      <div class="legacy-3d-showcase" id="legacy-flow-player" data-legacy-step-current="0">
+        <div class="legacy-3d-main">
+          <!-- Left: 3D Interactive Stage with Floating Callouts -->
+          <div class="three-stage-wrap legacy-stage-wrap">
+            <div class="legacy-stage-top-bar">
+              <span id="painpoint-stage-badge" class="stage-badge" data-mode="pain">ขั้นที่ 1 / 6 · ประชาชนแจ้งปัญหา (โทรแจ้ง หรือ เดินทางไปสำนักงาน)</span>
+              <div class="step1-channel-pills" id="step1-channel-group" role="group" aria-label="เลือกวิธีแจ้งในขั้นที่ 1">
+                <button type="button" class="channel-pill" data-step1-channel="both" aria-pressed="true">🔄 ทั้ง 2 ช่องทาง</button>
+                <button type="button" class="channel-pill" data-step1-channel="phone" aria-pressed="false">📞 โทรไปแจ้ง</button>
+                <button type="button" class="channel-pill" data-step1-channel="walk" aria-pressed="false">🚶 เดินทางไปแจ้งเอง</button>
+              </div>
+            </div>
+
+            <div id="painpoint-3d-stage" class="three-stage-canvas" tabindex="0" role="region" aria-label="ฉากจำลอง 3D กระบวนการทำงานระบบเดิม 6 ขั้นตอน"></div>
+
+            <!-- Synchronized 3D Callout Overlay Layer -->
+            <div id="legacy-3d-callouts" class="three-callout-layer" aria-hidden="true">
+              <div class="callout-pin" data-callout="home"><span>🏠 บ้านประชาชน</span></div>
+              <div class="callout-pin" data-callout="desk1"><span>🛎️ 1. โต๊ะรับเรื่อง</span></div>
+              <div class="callout-pin" data-callout="desk2"><span>👔 2. หัวหน้าส่วนงาน</span></div>
+              <div class="callout-pin" data-callout="desk3"><span>👷 3. เจ้าหน้าที่ช่าง</span></div>
+              <div class="callout-pin" data-callout="cabinet"><span>🗄️ ตู้เก็บเอกสาร</span></div>
+              <div class="callout-pin" data-callout="site"><span>🚧 จุดถนนชำรุด</span></div>
+              <div class="citizen-wait-badge" id="citizen-wait-badge" hidden>❓ ไม่รู้สถานะ (94.4% ติดตามยาก)</div>
+              <div class="legacy-action-bubble" id="legacy-action-bubble">
+                <strong id="legacy-bubble-text">📞 โทรแจ้งในเวลาราชการ หรือ 🚶 เดินทางมาแจ้งเอง</strong>
+              </div>
+            </div>
+
+            <div class="stage-controls-bar">
+              <div class="stage-ctrl-group">
+                <button type="button" class="stage-ctrl-btn" id="pain-rot-left" title="หมุนซ้าย">←</button>
+                <button type="button" class="stage-ctrl-btn" id="pain-rot-reset">คืนมุมมอง</button>
+                <button type="button" class="stage-ctrl-btn" id="pain-rot-right" title="หมุนขวา">→</button>
+              </div>
+              <span class="stage-hint">ลากเมาส์หมุนมุมกล้อง 3D · คลิกเลือกขั้นตอนด้านล่างเพื่อดูแอนิเมชัน</span>
+            </div>
+          </div>
+
+          <!-- Right: Step Narration & Pain Point Evidence -->
+          <div class="legacy-info-panel">
+            <div class="legacy-step-card">
+              <div class="legacy-step-meta">
+                <span id="legacy-step-num" class="legacy-step-badge">ขั้นที่ 1 / 6</span>
+                <span id="legacy-step-actor" class="legacy-step-actor">ประชาชน → เจ้าหน้าที่รับเรื่อง</span>
+              </div>
+              <h3 id="legacy-step-title">ประชาชนแจ้งปัญหา</h3>
+              <p id="legacy-step-detail" class="legacy-step-detail">เดินทางมาแจ้งด้วยตนเองที่สำนักงานในเวลาราชการ หรือโทรศัพท์แจ้งเจ้าหน้าที่ โดยอธิบายรายละเอียดของปัญหาและตำแหน่งที่เกิดเหตุด้วยคำพูด</p>
+              <div id="legacy-step-pain" class="legacy-pain-callout">
+                <strong>🚨 จุดคอขวด (Pain Point):</strong>
+                <span id="legacy-step-note">60.5% เลือกปล่อยผ่านเพราะต้องเดินทางไปเองหรือโทรในเวลาราชการ และอธิบายพิกัดด้วยคำพูดทำให้คลาดเคลื่อนง่าย</span>
+              </div>
+              <div class="legacy-phase-box">
+                <div class="legacy-phase-header">
+                  <span class="legacy-phase-dot"></span>
+                  <strong id="legacy-step-phase">กำลังจำลอง: ประชาชนพบปัญหา โทรศัพท์แจ้งเทศบาล</strong>
+                </div>
+                <div class="legacy-progress-bar" aria-hidden="true">
+                  <span id="legacy-progress-fill" style="width: 35%"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Survey Summary Pills -->
+            <div class="legacy-survey-strip" aria-label="สถิติปัญหาจากแบบสำรวจ">
+              <div class="survey-mini-box">
+                <strong>60.5%</strong>
+                <span>เลือกไม่แจ้ง / ปล่อยผ่าน<br><small>เพราะขั้นตอนติดต่อยุ่งยาก</small></span>
+              </div>
+              <div class="survey-mini-box">
+                <strong>94.4%</strong>
+                <span>ติดตามเรื่องยาก / ไม่รู้ผล<br><small>เพราะเป็นสมุดและแฟ้มกระดาษ</small></span>
+              </div>
+              <div class="survey-mini-box">
+                <strong>78.9%</strong>
+                <span>ต้องการแจ้งเตือนอัตโนมัติ<br><small>ไม่ต้องโทรถามเองซ้ำๆ</small></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom: 6-Step Selector & Playback Controls -->
+        <div class="legacy-bottom-bar">
+          <div class="legacy-steps-grid" role="group" aria-label="เลือกขั้นตอนการทำงานของระบบเดิม 6 ขั้นตอน">
+            <button type="button" class="legacy-step-btn" data-legacy-step="0" aria-pressed="true">
+              <span class="step-idx">1</span>
+              <div><strong>แจ้งปัญหา</strong><small>โทรแจ้ง / เดินทางมาเอง</small></div>
+            </button>
+            <button type="button" class="legacy-step-btn" data-legacy-step="1" aria-pressed="false">
+              <span class="step-idx">2</span>
+              <div><strong>บันทึกเรื่อง</strong><small>จดสมุดทะเบียน / ใบรับเรื่อง</small></div>
+            </button>
+            <button type="button" class="legacy-step-btn" data-legacy-step="2" aria-pressed="false">
+              <span class="step-idx">3</span>
+              <div><strong>มอบหมายงาน</strong><small>เดินแฟ้มเสนอหัวหน้า</small></div>
+            </button>
+            <button type="button" class="legacy-step-btn" data-legacy-step="3" aria-pressed="false">
+              <span class="step-idx">4</span>
+              <div><strong>สำรวจพื้นที่</strong><small>ลงตรวจ &amp; ประเมินงบ</small></div>
+            </button>
+            <button type="button" class="legacy-step-btn" data-legacy-step="4" aria-pressed="false">
+              <span class="step-idx">5</span>
+              <div><strong>อนุมัติ / แก้ไข</strong><small>รออนุมัติงบ → ซ่อมจริง</small></div>
+            </button>
+            <button type="button" class="legacy-step-btn" data-legacy-step="5" aria-pressed="false">
+              <span class="step-idx">6</span>
+              <div><strong>รายงานผล</strong><small>เก็บแฟ้ม / คนต้องโทรถามเอง</small></div>
+            </button>
+          </div>
+
+          <div class="legacy-playback-bar" role="group" aria-label="ควบคุมการเล่นแอนิเมชัน 3D">
+            <button type="button" class="playback-btn" id="legacy-prev-btn">← ขั้นก่อนหน้า</button>
+            <button type="button" class="playback-btn primary" id="legacy-play-btn">⏸ พักขั้นนี้</button>
+            <button type="button" class="playback-btn" id="legacy-next-btn">ขั้นถัดไป →</button>
+            <button type="button" class="playback-btn accent" id="legacy-playall-btn">▶ เล่นต่อเนื่องครบ 6 ขั้น</button>
+            <button type="button" class="playback-btn" id="legacy-restart-btn">↺ เริ่มใหม่</button>
+          </div>
+        </div>
+      </div>
+      <aside class="speaker-note" hidden>สไลด์นี้แสดง Flow จริงของการทำงานระบบเดิม 6 ขั้นตอน ตั้งแต่ประชาชนต้องโทรศัพท์หรือเดินทางมาแจ้งด้วยตนเอง เจ้าหน้าที่จดลงสมุดทะเบียน เดินแฟ้มเสนอหัวหน้า ลงพื้นที่สำรวจประเมินงบ ขออนุมัติซ่อม และทำหนังสือรายงานเก็บเข้าตู้ ซึ่งประชาชนจะไม่รู้ความคืบหน้าเลยหากไม่โทรมาถามเอง</aside>
+    </section>
+
+    <!-- Slide 3: กระบวนการทำงานของระบบใหม่ (Interactive Three.js 3D 5-Step Modern Flow) -->
+    <section class="slide legacy-flow-slide" id="slide-3" data-title="กระบวนการทำงานระบบใหม่ (5 ขั้นตอน)" aria-labelledby="title-3">
+      <div class="slide-heading">
+        <p class="product-eyebrow">NEW SYSTEM WORKFLOW (5 DIGITAL STEPS)</p>
+        <h2 id="title-3">กระบวนการทำงานของระบบใหม่: แจ้งออนไลน์ ติดตามได้ทุกขั้นตอน</h2>
+        <p>เปลี่ยนจากระบบกระดาษ 6 ขั้นตอน สู่ระบบดิจิทัล 5 ขั้นตอน พร้อม AI คัดกรองและพิกัด GPS เรียลไทม์</p>
+      </div>
+
+      <div class="legacy-3d-showcase modern-3d-showcase" id="modern-flow-player">
+        <div class="legacy-3d-main">
+          <!-- Left: Wide 3D Digital City & Live Flow Stage -->
+          <div class="three-stage-wrap legacy-stage-wrap modern-stage-wrap">
+            <div class="legacy-stage-top-bar">
+              <span class="stage-badge modern-stage-badge" id="modern-stage-badge">ขั้นที่ 1 / 5 · ประชาชนแจ้งปัญหาผ่านเว็บ</span>
+              <span class="modern-live-pill" id="modern-status-pill">สถานะ: รอรับเรื่อง</span>
+            </div>
+
+            <div id="feature-3d-stage" class="three-stage-canvas" tabindex="0" role="region" aria-label="ฉากจำลอง 3D กระบวนการทำงานระบบใหม่ 5 ขั้นตอน"></div>
+
+            <!-- Synchronized 2D Callout Pins over 3D Stations -->
+            <div class="three-callout-layer" id="modern-3d-callouts" aria-hidden="true">
+              <div class="callout-pin modern-pin" data-modern-callout="citizen"><span>📱 1. ประชาชน (เว็บมือถือ)</span></div>
+              <div class="callout-pin modern-pin" data-modern-callout="ai"><span>🤖 2. ระบบเว็บ &amp; AI</span></div>
+              <div class="callout-pin modern-pin" data-modern-callout="admin"><span>🖥️ 3. ผู้ดูแลระบบ</span></div>
+              <div class="callout-pin modern-pin" data-modern-callout="site"><span>🛻 4. เจ้าหน้าที่ &amp; จุดซ่อม</span></div>
+              <div class="citizen-live-badge" id="modern-citizen-badge">📤 ส่งรูป + พิกัด GPS</div>
+              <div class="legacy-action-bubble modern-action-bubble" id="modern-action-bubble">
+                <strong id="modern-bubble-text">📱 ถ่ายรูป + ปักหมุด GPS ส่งเข้าระบบทันที</strong>
+              </div>
+            </div>
+
+            <div class="stage-controls-bar">
+              <div class="stage-ctrl-group">
+                <button type="button" class="stage-ctrl-btn" id="modern-rot-left" title="หมุนซ้าย">←</button>
+                <button type="button" class="stage-ctrl-btn" id="modern-rot-reset">คืนมุมมอง</button>
+                <button type="button" class="stage-ctrl-btn" id="modern-rot-right" title="หมุนขวา">→</button>
+              </div>
+              <span class="stage-hint">คลิกปุ่ม 1–5 ด้านล่าง หรือคลิกที่สถานี 3D เพื่อดูการส่งต่อข้อมูล</span>
+            </div>
+          </div>
+
+          <!-- Right: Ultra-Clear Visual Diagram Panel (Minimal Text, Self-Explanatory) -->
+          <div class="legacy-info-panel modern-info-panel">
+            <article class="legacy-step-card modern-step-card" aria-live="polite">
+              <div class="legacy-step-meta">
+                <span class="legacy-step-badge modern-badge" id="modern-step-num">ขั้นที่ 1 / 5</span>
+                <span class="legacy-step-actor" id="modern-step-actor">👤 ประชาชน ➔ 🤖 ระบบเว็บ</span>
+              </div>
+              <h3 id="modern-step-title">แจ้งปัญหาผ่านเว็บ (รูปถ่าย + พิกัด GPS)</h3>
+
+              <!-- Visual 3-Chip Flow (Who -> Action -> Instant Result) -->
+              <div class="modern-visual-flow" id="modern-visual-flow">
+                <div class="mv-node">
+                  <span class="mv-icon" id="mv-icon-1">📱</span>
+                  <small>ผู้ดำเนินการ</small>
+                  <strong id="mv-text-1">ประชาชนเปิดเว็บ</strong>
+                </div>
+                <span class="mv-arrow" aria-hidden="true">➔</span>
+                <div class="mv-node active">
+                  <span class="mv-icon" id="mv-icon-2">📍</span>
+                  <small>สิ่งที่ทำ</small>
+                  <strong id="mv-text-2">แนบรูป + ปักหมุด GPS</strong>
+                </div>
+                <span class="mv-arrow" aria-hidden="true">➔</span>
+                <div class="mv-node result">
+                  <span class="mv-icon" id="mv-icon-3">⚡</span>
+                  <small>ผลลัพธ์ทันที</small>
+                  <strong id="mv-text-3">ส่งเรื่องทันที ไม่ต้องเดินทาง</strong>
+                </div>
+              </div>
+
+              <!-- Live Screen Graphic Preview -->
+              <div class="modern-screen-graphic" id="modern-screen-graphic"></div>
+
+              <div class="legacy-phase-box modern-phase-box">
+                <div class="legacy-phase-header">
+                  <span class="legacy-phase-dot"></span>
+                  <strong id="modern-step-phase">1/3 · ถ่ายภาพหน้างานและดึงพิกัด GPS อัตโนมัติ</strong>
+                </div>
+                <div class="legacy-progress-bar">
+                  <span id="modern-progress-fill" style="width: 35%"></span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Compact 3-Metric Highlight Strip -->
+            <div class="legacy-survey-strip modern-highlight-strip">
+              <div class="survey-mini-box modern-mini-box">
+                <strong>5 ขั้นตอน</strong>
+                <span>ออนไลน์ไร้กระดาษ<br><small>ไม่ต้องเดินแฟ้มเอง</small></span>
+              </div>
+              <div class="survey-mini-box modern-mini-box">
+                <strong>0.48 วินาที</strong>
+                <span>พิกัด GPS สดหน้างาน<br><small>เห็นรถเคลื่อนที่เรียลไทม์</small></span>
+              </div>
+              <div class="survey-mini-box modern-mini-box">
+                <strong>แจ้งเตือนสด</strong>
+                <span>รู้สถานะทุกขั้นตอน<br><small>ไม่ต้องโทรถามซ้ำ</small></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom: 5-Step Selector & Playback Bar -->
+        <div class="legacy-bottom-bar">
+          <div class="legacy-steps-grid modern-steps-grid" role="group" aria-label="เลือกขั้นตอนกระบวนการทำงานระบบใหม่ 5 ขั้นตอน">
+            <button type="button" class="legacy-step-btn" data-modern-step="0" aria-pressed="true">
+              <span class="step-idx">1</span>
+              <div><strong>แจ้งผ่านเว็บ</strong><small>แนบรูป + พิกัด GPS</small></div>
+            </button>
+            <button type="button" class="legacy-step-btn" data-modern-step="1" aria-pressed="false">
+              <span class="step-idx">2</span>
+              <div><strong>AI คัดกรอง</strong><small>สร้างรหัส + จัดลำดับด่วน</small></div>
+            </button>
+            <button type="button" class="legacy-step-btn" data-modern-step="2" aria-pressed="false">
+              <span class="step-idx">3</span>
+              <div><strong>มอบหมายงาน</strong><small>ผู้ดูแลจ่ายงาน + แจ้งเตือน</small></div>
+            </button>
+            <button type="button" class="legacy-step-btn" data-modern-step="3" aria-pressed="false">
+              <span class="step-idx">4</span>
+              <div><strong>ลงพื้นที่ซ่อม</strong><small>GPS สด ➔ ซ่อม ➔ ส่งรูป</small></div>
+            </button>
+            <button type="button" class="legacy-step-btn" data-modern-step="4" aria-pressed="false">
+              <span class="step-idx">5</span>
+              <div><strong>ตรวจ &amp; ปิดงาน</strong><small>ตรวจรูป ➔ แจ้งเสร็จสิ้น</small></div>
+            </button>
+          </div>
+
+          <div class="legacy-playback-bar" role="group" aria-label="ควบคุมการเล่นแอนิเมชันระบบใหม่ 3D">
+            <button type="button" class="playback-btn" id="modern-prev-btn">← ขั้นก่อนหน้า</button>
+            <button type="button" class="playback-btn primary" id="modern-play-btn">⏸ พักแอนิเมชัน</button>
+            <button type="button" class="playback-btn" id="modern-next-btn">ขั้นถัดไป →</button>
+            <button type="button" class="playback-btn accent" id="modern-playall-btn">▶ เล่นต่อเนื่องครบ 5 ขั้น</button>
+            <button type="button" class="playback-btn" id="modern-restart-btn">↺ เริ่มใหม่</button>
+          </div>
+        </div>
+      </div>
+      <aside class="speaker-note" hidden>สไลด์นี้แสดงกระบวนการทำงานของระบบใหม่ PhetpriReport ทั้ง 5 ขั้นตอนผ่านโมเดล 3D ที่เข้าใจง่าย ตั้งแต่ประชาชนถ่ายรูปปักหมุด GPS แจ้งผ่านเว็บ ระบบและ AI คัดกรองความเร่งด่วน ผู้ดูแลกดมอบหมายงาน เจ้าหน้าที่เปิด GPS สดลงพื้นที่ซ่อมและถ่ายรูปส่งตรวจ จนถึงผู้ดูแลตรวจหลักฐานปิดงานพร้อมแจ้งเตือนประชาชนอัตโนมัติ</aside>
+    </section>
+
+    <!-- Slide 4: Screen 1 — Home & Overview -->
+    <section class="slide example-slide screen-example-slide" id="slide-4" data-title="หน้าแรกและภาพรวมปัญหา" data-source="code" aria-labelledby="title-4">
+      <div class="slide-heading">
+        <p class="example-kicker">หน้าจอระบบล่าสุด · ประชาชน</p>
+        <h2 id="title-4">หน้าแรกและภาพรวมปัญหา</h2>
+        <p>เห็นสถิติภาพรวม แผนที่ปัญหาสาธารณะ และทางเข้าแจ้งเรื่อง / ติดตามเรื่อง</p>
+      </div>
+      <div class="screen-pair">
+        <figure class="screen-example desktop">
+          <figcaption><span>Desktop</span><button type="button" data-example-image="assets/screens/home-desktop-full.webp" data-example-title="หน้าแรกและภาพรวมปัญหา · Desktop">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/home-desktop-full.webp" data-example-title="หน้าแรกและภาพรวมปัญหา · Desktop" aria-label="ดู หน้าแรกและภาพรวมปัญหา แบบ Desktop เต็มหน้า"><img src="assets/screens/home-desktop.webp" alt="หน้าจอ หน้าแรกและภาพรวมปัญหา แบบ Desktop จากระบบจริง" width="1440" height="900" loading="lazy"></button>
+        </figure>
+        <figure class="screen-example mobile">
+          <figcaption><span>Mobile</span><button type="button" data-example-image="assets/screens/home-mobile-full.webp" data-example-title="หน้าแรกและภาพรวมปัญหา · Mobile">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/home-mobile-full.webp" data-example-title="หน้าแรกและภาพรวมปัญหา · Mobile" aria-label="ดู หน้าแรกและภาพรวมปัญหา แบบ Mobile เต็มหน้า"><img src="assets/screens/home-mobile.webp" alt="หน้าจอ หน้าแรกและภาพรวมปัญหา แบบ Mobile จากระบบจริง" width="390" height="844" loading="lazy"></button>
+        </figure>
+      </div>
+      <p class="example-source">จับภาพจาก UI ระบบจริงใน codebase · Responsive ครบทั้ง Desktop และ Mobile</p>
+      <aside class="speaker-note" hidden>หน้าแรกของระบบออกแบบตามมาตรฐาน PWA ให้ใช้งานได้สะดวกทั้งบนคอมพิวเตอร์และมือถือ โดยมีแผนที่รวมปัญหาและทางเข้าแจ้งเรื่องได้ทันที</aside>
+    </section>
+
+    <!-- Slide 5: Screen 2 — Report Problem Form -->
+    <section class="slide example-slide screen-example-slide" id="slide-5" data-title="แจ้งปัญหาสาธารณะ" data-source="code" aria-labelledby="title-5">
+      <div class="slide-heading">
+        <p class="example-kicker">หน้าจอระบบล่าสุด · ประชาชน</p>
+        <h2 id="title-5">แจ้งปัญหาสาธารณะ</h2>
+        <p>กรอกข้อมูล แนบภาพถ่ายจุดเกิดเหตุ และปักหมุดบนแผนที่ได้สะดวกรวดเร็ว</p>
+      </div>
+      <div class="screen-pair">
+        <figure class="screen-example desktop">
+          <figcaption><span>Desktop</span><button type="button" data-example-image="assets/screens/report-desktop-full.webp" data-example-title="แจ้งปัญหาสาธารณะ · Desktop">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/report-desktop-full.webp" data-example-title="แจ้งปัญหาสาธารณะ · Desktop" aria-label="ดู แจ้งปัญหาสาธารณะ แบบ Desktop เต็มหน้า"><img src="assets/screens/report-desktop.webp" alt="หน้าจอ แจ้งปัญหาสาธารณะ แบบ Desktop จากระบบจริง" width="1440" height="900" loading="lazy"></button>
+        </figure>
+        <figure class="screen-example mobile">
+          <figcaption><span>Mobile</span><button type="button" data-example-image="assets/screens/report-mobile-full.webp" data-example-title="แจ้งปัญหาสาธารณะ · Mobile">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/report-mobile-full.webp" data-example-title="แจ้งปัญหาสาธารณะ · Mobile" aria-label="ดู แจ้งปัญหาสาธารณะ แบบ Mobile เต็มหน้า"><img src="assets/screens/report-mobile.webp" alt="หน้าจอ แจ้งปัญหาสาธารณะ แบบ Mobile จากระบบจริง" width="390" height="844" loading="lazy"></button>
+        </figure>
+      </div>
+      <p class="example-source">จับภาพจาก UI ระบบจริงใน codebase · ฟอร์มแนบไฟล์ภาพและพิกัดแผนที่</p>
+      <aside class="speaker-note" hidden>ฟอร์มแจ้งเรื่องรองรับการระบุพิกัดอัตโนมัติจาก GPS ของเบราว์เซอร์ พร้อมการบีบอัดรูปภาพก่อนส่งขึ้น Cloudflare R2 เพื่อประหยัดแบนด์วิดท์</aside>
+    </section>
+
+    <!-- Slide 6: Screen 3 — Citizen Profile & Tracking -->
+    <section class="slide example-slide screen-example-slide" id="slide-6" data-title="บัญชีและเรื่องที่ประชาชนแจ้ง" data-source="code" aria-labelledby="title-6">
+      <div class="slide-heading">
+        <p class="example-kicker">หน้าจอระบบล่าสุด · ประชาชน</p>
+        <h2 id="title-6">บัญชีและเรื่องที่ประชาชนแจ้ง</h2>
+        <p>ติดตามสถานะของทุกเรื่องที่ตนเองแจ้ง แยกตามสถานะ 5 ขั้นตอนชัดเจน</p>
+      </div>
+      <div class="screen-pair">
+        <figure class="screen-example desktop">
+          <figcaption><span>Desktop</span><button type="button" data-example-image="assets/screens/citizen-profile-desktop-full.webp" data-example-title="บัญชีและเรื่องที่ประชาชนแจ้ง · Desktop">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/citizen-profile-desktop-full.webp" data-example-title="บัญชีและเรื่องที่ประชาชนแจ้ง · Desktop" aria-label="ดู บัญชีและเรื่องที่ประชาชนแจ้ง แบบ Desktop เต็มหน้า"><img src="assets/screens/citizen-profile-desktop.webp" alt="หน้าจอ บัญชีและเรื่องที่ประชาชนแจ้ง แบบ Desktop จากระบบจริง" width="1440" height="900" loading="lazy"></button>
+        </figure>
+        <figure class="screen-example mobile">
+          <figcaption><span>Mobile</span><button type="button" data-example-image="assets/screens/citizen-profile-mobile-full.webp" data-example-title="บัญชีและเรื่องที่ประชาชนแจ้ง · Mobile">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/citizen-profile-mobile-full.webp" data-example-title="บัญชีและเรื่องที่ประชาชนแจ้ง · Mobile" aria-label="ดู บัญชีและเรื่องที่ประชาชนแจ้ง แบบ Mobile เต็มหน้า"><img src="assets/screens/citizen-profile-mobile.webp" alt="หน้าจอ บัญชีและเรื่องที่ประชาชนแจ้ง แบบ Mobile จากระบบจริง" width="390" height="844" loading="lazy"></button>
+        </figure>
+      </div>
+      <p class="example-source">จับภาพจาก UI ระบบจริงใน codebase · จัดกลุ่มเรื่องตามสถานะและมีตัวกรอง</p>
+      <aside class="speaker-note" hidden>หน้าโปรไฟล์ของประชาชนช่วยตอบโจทย์ Pain Point เรื่องการติดตามเรื่องที่เคยทำได้ยาก โดยแสดงสถานะชัดเจนว่าเรื่องอยู่ที่ขั้นใด</aside>
+    </section>
+
+    <!-- Slide 7: Screen 4 — Officer Assigned Tasks -->
+    <section class="slide example-slide screen-example-slide" id="slide-7" data-title="งานที่เจ้าหน้าที่รับผิดชอบ" data-source="code" aria-labelledby="title-7">
+      <div class="slide-heading">
+        <p class="example-kicker">หน้าจอระบบล่าสุด · เจ้าหน้าที่</p>
+        <h2 id="title-7">งานที่เจ้าหน้าที่รับผิดชอบ</h2>
+        <p>เห็นรายการงานที่ได้รับมอบหมาย ปุ่มรับงาน ทางเข้าแผนที่นำทาง และส่งผลงาน</p>
+      </div>
+      <div class="screen-pair">
+        <figure class="screen-example desktop">
+          <figcaption><span>Desktop</span><button type="button" data-example-image="assets/screens/officer-profile-desktop-full.webp" data-example-title="งานที่เจ้าหน้าที่รับผิดชอบ · Desktop">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/officer-profile-desktop-full.webp" data-example-title="งานที่เจ้าหน้าที่รับผิดชอบ · Desktop" aria-label="ดู งานที่เจ้าหน้าที่รับผิดชอบ แบบ Desktop เต็มหน้า"><img src="assets/screens/officer-profile-desktop.webp" alt="หน้าจอ งานที่เจ้าหน้าที่รับผิดชอบ แบบ Desktop จากระบบจริง" width="1440" height="900" loading="lazy"></button>
+        </figure>
+        <figure class="screen-example mobile">
+          <figcaption><span>Mobile</span><button type="button" data-example-image="assets/screens/officer-profile-mobile-full.webp" data-example-title="งานที่เจ้าหน้าที่รับผิดชอบ · Mobile">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/officer-profile-mobile-full.webp" data-example-title="งานที่เจ้าหน้าที่รับผิดชอบ · Mobile" aria-label="ดู งานที่เจ้าหน้าที่รับผิดชอบ แบบ Mobile เต็มหน้า"><img src="assets/screens/officer-profile-mobile.webp" alt="หน้าจอ งานที่เจ้าหน้าที่รับผิดชอบ แบบ Mobile จากระบบจริง" width="390" height="844" loading="lazy"></button>
+        </figure>
+      </div>
+      <p class="example-source">จับภาพจาก UI ระบบจริงใน codebase · แสดงสถานะงานและปุ่มกดเริ่มเดินทาง</p>
+      <aside class="speaker-note" hidden>หน้าจอเจ้าหน้าที่ภาคสนามเน้นความเรียบง่าย กดรับงานแล้วสามารถกดเปิดระบบนำทางและเริ่มแชร์พิกัด GPS ได้ทันที</aside>
+    </section>
+
+    <!-- Slide 8: Screen 5 — Report Detail & Progress -->
+    <section class="slide example-slide screen-example-slide" id="slide-8" data-title="รายละเอียดและความคืบหน้าของเรื่อง" data-source="code" aria-labelledby="title-8">
+      <div class="slide-heading">
+        <p class="example-kicker">หน้าจอระบบล่าสุด · ประชาชน &amp; เจ้าหน้าที่</p>
+        <h2 id="title-8">รายละเอียดและความคืบหน้าของเรื่อง</h2>
+        <p>แสดง Timeline การดำเนินงาน เจ้าหน้าที่ผู้รับผิดชอบ และแผนที่จุดเกิดเหตุ</p>
+      </div>
+      <div class="screen-pair">
+        <figure class="screen-example desktop">
+          <figcaption><span>Desktop</span><button type="button" data-example-image="assets/screens/detail-desktop-full.webp" data-example-title="รายละเอียดและความคืบหน้าของเรื่อง · Desktop">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/detail-desktop-full.webp" data-example-title="รายละเอียดและความคืบหน้าของเรื่อง · Desktop" aria-label="ดู รายละเอียดและความคืบหน้าของเรื่อง แบบ Desktop เต็มหน้า"><img src="assets/screens/detail-desktop.webp" alt="หน้าจอ รายละเอียดและความคืบหน้าของเรื่อง แบบ Desktop จากระบบจริง" width="1440" height="900" loading="lazy"></button>
+        </figure>
+        <figure class="screen-example mobile">
+          <figcaption><span>Mobile</span><button type="button" data-example-image="assets/screens/detail-mobile-full.webp" data-example-title="รายละเอียดและความคืบหน้าของเรื่อง · Mobile">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/detail-mobile-full.webp" data-example-title="รายละเอียดและความคืบหน้าของเรื่อง · Mobile" aria-label="ดู รายละเอียดและความคืบหน้าของเรื่อง แบบ Mobile เต็มหน้า"><img src="assets/screens/detail-mobile.webp" alt="หน้าจอ รายละเอียดและความคืบหน้าของเรื่อง แบบ Mobile จากระบบจริง" width="390" height="844" loading="lazy"></button>
+        </figure>
+      </div>
+      <p class="example-source">จับภาพจาก UI ระบบจริงใน codebase · ไทม์ไลน์ความคืบหน้าและการเชื่อมโยงแผนที่</p>
+      <aside class="speaker-note" hidden>หน้าแสดงรายละเอียดของเรื่องช่วยให้ประชาชนเห็นความโปร่งใส รู้ว่าเรื่องถูกส่งต่อให้ใครและกำลังอยู่ในขั้นตอนใด</aside>
+    </section>
+
+    <!-- Slide 9: Screen 6 — Admin Dashboard -->
+    <section class="slide example-slide screen-example-slide" id="slide-9" data-title="แดชบอร์ดผู้ดูแลระบบ" data-source="code" aria-labelledby="title-9">
+      <div class="slide-heading">
+        <p class="example-kicker">หน้าจอระบบล่าสุด · ผู้ดูแล</p>
+        <h2 id="title-9">แดชบอร์ดผู้ดูแลระบบ</h2>
+        <p>ภาพรวมสถิติ จำนวนเรื่องแยกตามประเภทและพื้นที่ พร้อมการมอบหมายงาน</p>
+      </div>
+      <div class="screen-pair">
+        <figure class="screen-example desktop">
+          <figcaption><span>Desktop</span><button type="button" data-example-image="assets/screens/dashboard-desktop-full.webp" data-example-title="แดชบอร์ดผู้ดูแลระบบ · Desktop">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/dashboard-desktop-full.webp" data-example-title="แดชบอร์ดผู้ดูแลระบบ · Desktop" aria-label="ดู แดชบอร์ดผู้ดูแลระบบ แบบ Desktop เต็มหน้า"><img src="assets/screens/dashboard-desktop.webp" alt="หน้าจอ แดชบอร์ดผู้ดูแลระบบ แบบ Desktop จากระบบจริง" width="1440" height="900" loading="lazy"></button>
+        </figure>
+        <figure class="screen-example mobile">
+          <figcaption><span>Mobile</span><button type="button" data-example-image="assets/screens/dashboard-mobile-full.webp" data-example-title="แดชบอร์ดผู้ดูแลระบบ · Mobile">ดูเต็มหน้า ↗</button></figcaption>
+          <button type="button" class="screen-image-button" data-example-image="assets/screens/dashboard-mobile-full.webp" data-example-title="แดชบอร์ดผู้ดูแลระบบ · Mobile" aria-label="ดู แดชบอร์ดผู้ดูแลระบบ แบบ Mobile เต็มหน้า"><img src="assets/screens/dashboard-mobile.webp" alt="หน้าจอ แดชบอร์ดผู้ดูแลระบบ แบบ Mobile จากระบบจริง" width="390" height="844" loading="lazy"></button>
+        </figure>
+      </div>
+      <p class="example-source">จับภาพจาก UI ระบบจริงใน codebase · แดชบอร์ดสรุปสถิติสำหรับผู้บริหาร</p>
+      <aside class="speaker-note" hidden>แดชบอร์ดช่วยให้ผู้บริหารเทศบาลเห็นภาพรวมว่าพื้นที่ใดเกิดปัญหาซ้ำซ้อน และประเมินประสิทธิภาพการแก้ไขปัญหาได้อย่างแม่นยำ</aside>
+    </section>
+
+    <!-- Slide 10: Product Spotlight (Interactive Feature Explorer) -->
+    <section class="slide product-slide product-spotlight" id="slide-10" data-title="Product Spotlight: จุดเด่นที่ช่วยให้เรื่องเดินต่อ" data-source="code" aria-labelledby="title-10">
+      <div class="slide-heading">
+        <p class="product-eyebrow">PRODUCT SPOTLIGHT</p>
+        <h2 id="title-10">แจ้งให้ครบ ตามงานให้ถึงปลายทาง</h2>
+        <p>เลือกดูจุดเด่นที่เชื่อมประชาชน เจ้าหน้าที่ และผู้ดูแลเข้าด้วยกัน</p>
+      </div>
+      <div class="product-spotlight-grid">
+        <div class="product-feature-list" role="group" aria-label="เลือกฟีเจอร์ที่ต้องการดู">
+          <button type="button" data-product-feature="0" aria-pressed="true">
+            <span class="feature-index">01 / REPORT</span>
+            <strong>ภาพและจุดเกิดเหตุ<br>อยู่ในเรื่องเดียวกัน</strong>
+            <small>รายละเอียด ภาพประกอบ และหมุด ช่วยให้ตรวจสอบปัญหาได้ตรงจุด</small>
+          </button>
+          <button type="button" data-product-feature="1" aria-pressed="false">
+            <span class="feature-index">02 / TRACK</span>
+            <strong>รู้ว่าเรื่องของเรา<br>ไปถึงขั้นไหนแล้ว</strong>
+            <small>ติดตามสถานะและดูเรื่องที่ตนเองแจ้งจากบัญชีผู้ใช้</small>
+          </button>
+          <button type="button" data-product-feature="2" aria-pressed="false">
+            <span class="feature-index">03 / WORK</span>
+            <strong>เปิดมาเห็นงาน<br>ที่ต้องทำต่อทันที</strong>
+            <small>เจ้าหน้าที่แยกงานตามสถานะ พร้อมปุ่มรับงานและดำเนินการ</small>
+          </button>
+          <button type="button" data-product-feature="3" aria-pressed="false">
+            <span class="feature-index">04 / VERIFY</span>
+            <strong>มีหลักฐานการแก้ไข<br>ก่อนยืนยันปิดเรื่อง</strong>
+            <small>ส่งผลพร้อมภาพให้ผู้ดูแลตรวจสอบ แล้วจึงเปลี่ยนเป็นเสร็จสิ้น</small>
+          </button>
+        </div>
+        <div class="product-stage" aria-label="ภาพย่ออธิบายฟีเจอร์ เป็นข้อมูลจำลอง">
+          <div class="product-stage-grid" aria-hidden="true"></div>
+          <div class="product-orbit orbit-one" aria-hidden="true"></div>
+          <div class="product-orbit orbit-two" aria-hidden="true"></div>
+          <div id="feature-visual" class="feature-visual"></div>
+          <p class="product-stage-note">ภาพจำลองสำหรับอธิบายฟีเจอร์</p>
+          <p id="feature-announcer" class="sr-only" aria-live="polite"></p>
+        </div>
+      </div>
+      <aside class="speaker-note" hidden>ฟีเจอร์เด่น 4 ด้านของระบบช่วยลดการสูญหายของเรื่องร้องเรียน และมีหลักฐานภาพถ่ายทั้งก่อนและหลังแก้ไขเพื่อความโปร่งใส</aside>
+    </section>
+
+    <!-- Slide 11: Real-time Live GPS Tracking & Journey Simulation -->
+    <section class="slide product-slide" id="slide-11" data-title="ระบบติดตามและนำทางแบบเรียลไทม์" data-gps-journey-slide data-source="code" aria-labelledby="title-11">
+      <div class="slide-heading">
+        <p class="product-eyebrow">LIVE GPS TRACKING &amp; JOURNEY</p>
+        <h2 id="title-11">ระบบติดตามและนำทางแบบเรียลไทม์ (Sub-Second Live Sync)</h2>
+        <p>จำลองการเดินทางของเจ้าหน้าที่ลงพื้นที่ พร้อมเปรียบเทียบการอัปเดตแบบสดบนหน้าเว็บ</p>
+      </div>
+      <div class="gps-showcase-grid">
+        <div class="gps-flow-col">
+          <div class="gps-step-card" data-gps-step="0" aria-current="step">
+            <div class="gps-step-header">
+              <span class="gps-step-badge">STEP 01</span>
+              <small style="color:#087f5b;font-weight:600;">รับงาน &amp; ออกตรวจ</small>
+            </div>
+            <strong>เปิดสิทธิ์ GPS แม่นยำสูง (HighAccuracy) + WakeLock</strong>
+            <p>เจ้าหน้าที่กดเริ่มเดินทาง ระบบขอสิทธิ์พิกัดดาวเทียม และเปิด Screen WakeLock ป้องกันหน้าจอดับ</p>
+          </div>
+          <div class="gps-step-card" data-gps-step="1">
+            <div class="gps-step-header">
+              <span class="gps-step-badge">STEP 02</span>
+              <small style="color:#087f5b;font-weight:600;">ระหว่างเดินทาง (Optimize แล้ว)</small>
+            </div>
+            <strong>Movement-Aware ส่งทันทีเมื่อขยับ &middot; ซิงก์ใน 0.48 วิ</strong>
+            <p>ส่งพิกัดขึ้นเซิร์ฟเวอร์ทันทีที่เคลื่อนที่ ≥1.5 ม. ประชาชนเห็นหมุดขยับอย่างลื่นไหล ไม่กระตุก</p>
+          </div>
+          <div class="gps-step-card" data-gps-step="2">
+            <div class="gps-step-header">
+              <span class="gps-step-badge">STEP 03</span>
+              <small style="color:#087f5b;font-weight:600;">ถึงหน้างาน</small>
+            </div>
+            <strong>เข้าสู่จุดเกิดเหตุ &amp; สิ้นสุดการแชร์พิกัด</strong>
+            <p>เมื่อระยะห่างถึงเป้าหมาย ระบบแจ้งเตือนประชาชน และปิดการแชร์พิกัดอัตโนมัติเพื่อความเป็นส่วนตัว</p>
+          </div>
+          <div class="gps-toolbar">
+            <button type="button" data-gps-view="citizen" aria-pressed="true">มุมมองประชาชน</button>
+            <button type="button" data-gps-view="officer" aria-pressed="false">มุมมองเจ้าหน้าที่</button>
+            <div id="gps-poll-group">
+              <span>โหมดเปรียบเทียบ:</span>
+              <button type="button" data-gps-poll="0.5" aria-pressed="true">⚡ หลัง Optimize (0.48 วิ)</button>
+              <button type="button" data-gps-poll="9.5" aria-pressed="false">🐢 ก่อน Optimize (9.47 วิ)</button>
+            </div>
+            <button type="button" id="gps-replay">⟳ เล่นซ้ำ</button>
+          </div>
+        </div>
+        <div class="gps-stage-wrap">
+          <div id="gps-stage" data-view="citizen" data-poll="0.5">
+            <canvas id="gps-map-canvas" width="600" height="420"></canvas>
+            <div id="gps-status" data-phase="0">
+              <i class="status-dot"></i>
+              <span id="gps-status-text">รอเจ้าหน้าที่เริ่มเดินทาง</span>
+            </div>
+            <div id="gps-hud">
+              <div class="gps-hud-item">
+                <small>ระยะทางคงเหลือ</small>
+                <strong id="gps-distance">1.55 กม.</strong>
+              </div>
+              <div class="gps-hud-item">
+                <small>เวลาประมาณการ (ETA)</small>
+                <strong id="gps-eta">รอเริ่ม</strong>
+              </div>
+              <div class="gps-hud-item">
+                <small id="gps-third-label">ดีเลย์ซิงก์ล่าสุด</small>
+                <strong id="gps-third">0.48 วิ</strong>
+              </div>
+            </div>
+            <p id="gps-lag">หลัง Optimize: ดีเลย์เฉลี่ย 0.48 วิ · ห่างจากตำแหน่งรถจริงเพียง ~4.8 ม. (0 HTTP 429)</p>
+          </div>
+        </div>
+      </div>
+      <aside class="speaker-note" hidden>หน้าจำลองการเดินทางของเจ้าหน้าที่ รองรับการสลับมุมมองระหว่างประชาชนกับเจ้าหน้าที่ และสามารถกดปุ่มเปรียบเทียบความเร็ว ก่อน และ หลัง Optimize เพื่อแสดงความแตกต่างได้สดๆ บนหน้าจอ</aside>
+    </section>
+
+    <!-- Slide 12: Real-time GPS Optimization Benchmark (Interactive Three.js 3D Vehicle Race) -->
+    <section class="slide" id="slide-12" data-title="ผลการทดสอบ &amp; Optimize Real-Time GPS" aria-labelledby="title-12">
+      <div class="slide-heading">
+        <p class="product-eyebrow">AUTOMATED DUAL-BROWSER BENCHMARK</p>
+        <h2 id="title-12">ผลการทดสอบความแม่นยำและดีเลย์: เร็วขึ้น 19.9 เท่า</h2>
+        <p>ผลการทดสอบจริงด้วย Playwright จำลองเครื่องเจ้าหน้าที่และผู้แจ้งพร้อมกันบนเส้นทางจริงในจังหวัดเพชรบุรี</p>
+      </div>
+      <div class="benchmark-showcase-grid">
+        <div class="three-stage-wrap">
+          <div class="bench-lane-legend">
+            <span class="lane-tag-before"><i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e0533c;"></i> ก่อน Optimize: ดีเลย์ 9.47s (ตามหลัง 94.7m)</span>
+            <span class="lane-tag-after"><i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#087f5b;"></i> หลัง Optimize: ดีเลย์ 0.48s (ตามหลัง 4.8m)</span>
+          </div>
+          <div id="benchmark-3d-stage" class="three-stage-canvas" tabindex="0" role="region" aria-label="ฉากจำลอง 3D เปรียบเทียบความเร็วและการเคลื่อนที่ของรถเจ้าหน้าที่ก่อนและหลัง Optimize"></div>
+          <div class="stage-controls-bar">
+            <span class="stage-hint">ลากเมาส์หมุนมุมมอง 3D ได้อิสระ</span>
+          </div>
+        </div>
+        <div class="bench-hud-card">
+          <div class="bench-wp-bar" role="group" aria-label="เลือกจุดพิกัดทดสอบ">
+            <button type="button" class="bench-wp-btn" data-bench-wp="all" aria-pressed="true">ภาพรวมทั้งเส้นทาง</button>
+            <button type="button" class="bench-wp-btn" data-bench-wp="WP1" aria-pressed="false">WP1 (กม. 1.24)</button>
+            <button type="button" class="bench-wp-btn" data-bench-wp="WP2" aria-pressed="false">WP2 (กม. 0.93)</button>
+            <button type="button" class="bench-wp-btn" data-bench-wp="WP3" aria-pressed="false">WP3 (กม. 0.62)</button>
+            <button type="button" class="bench-wp-btn" data-bench-wp="WP4" aria-pressed="false">WP4 (กม. 0.31)</button>
+          </div>
+          <div class="bench-comparison-boxes">
+            <div class="comp-box comp-box-before">
+              <small>ก่อนแก้ไข (BEFORE)</small>
+              <strong id="bench-hud-before">9.47 วิ (9,467 ms)</strong>
+              <p>คอขวด Server ลิมิต 10s + Poll 5s<br>ติด HTTP 429 ถึง 39 ครั้ง</p>
+            </div>
+            <div class="comp-box comp-box-after">
+              <small>หลังแก้ไข (AFTER)</small>
+              <strong id="bench-hud-after">0.48 วิ (475 ms)</strong>
+              <p>Movement-Aware 1s + Poll 1s<br>HTTP 429 เหลือ 0 ครั้ง (100% สำเร็จ)</p>
+            </div>
+          </div>
+          <div class="bench-highlight-banner">
+            <div>
+              <strong id="bench-hud-speedup">เร็วขึ้น 19.9 เท่า (ลดดีเลย์ 95.0%)</strong>
+              <p style="margin:4px 0 0;font-size:12px;color:#d1e7db;">ความแม่นยำพิกัด 100.0% &middot; คำนวณระยะทางแม่นยำ 99.997%</p>
+            </div>
+            <span id="bench-hud-429" style="font-weight:700;color:#79e8b4;">จาก 39 ครั้ง → 0 ครั้ง</span>
+          </div>
+          <button type="button" class="bench-details-btn" id="open-bench-detail">ดูตารางผลทดสอบและวิธีวัดฉบับเต็ม ↗</button>
+        </div>
+      </div>
+      <aside class="speaker-note" hidden>สไลด์นี้เป็นหัวใจสำคัญทางเทคนิคในการนำเสนอ แสดงผล Benchmark ที่วัดจริงด้วย Playwright พร้อมโมเดล 3D ที่แสดงให้เห็นว่าก่อนแก้ รถวิ่งไปแล้วแต่หมุดค้างตามหลังถึง 94.7 เมตร ขณะที่หลังแก้หมุดตามติดรถจริงเพียง 4.8 เมตร</aside>
+    </section>
+
+    <!-- Slide 13: GPS Precision & Guardrail (Scatter Radar) -->
+    <section class="slide product-slide" id="slide-13" data-title="ความแม่นยำเชิงพิกัดและการคัดกรองสัญญาณ" data-gps-precision-slide data-source="code" aria-labelledby="title-13">
+      <div class="slide-heading">
+        <p class="product-eyebrow">FIELD TEST &amp; PRECISION RADAR</p>
+        <h2 id="title-13">ความแม่นยำเชิงพิกัดและระบบคัดกรองสัญญาณรบกวน</h2>
+        <p>ตัวเลขการวัดความแม่นยำจริงระดับ Sub-Meter พร้อมระบบตัดสัญญาณ GPS แกว่งอัตโนมัติ</p>
+      </div>
+      <div class="accuracy-showcase-grid">
+        <div class="accuracy-cards-col">
+          <div class="accuracy-card">
+            <div class="accuracy-card-header">
+              <h3>ความแม่นยำเชิงพิกัด (Coordinate Sync)</h3>
+              <span class="accuracy-card-badge">Float64 Geodesic</span>
+            </div>
+            <div class="metric-number">100.0%</div>
+            <p class="accuracy-card-title">ความคลาดเคลื่อนพิกัดหมุด &lt; 0.01 เมตร</p>
+            <ul>
+              <li>พิกัดหมุดบนหน้าจอผู้แจ้งตรงกับพิกัดเซนเซอร์ของเจ้าหน้าที่แบบเป๊ะ 100%</li>
+              <li>การคำนวณระยะทางคงเหลือตามแนวถนนแม่นยำ <strong>99.997%</strong> (คลาดเคลื่อนเฉลี่ยเพียง 0.02 เมตร บนเส้นทาง 1.24 กม.)</li>
+              <li>รองรับการคำนวณเส้นทางใหม่ (Auto Re-route) อัตโนมัติเมื่อออกนอกเส้นทางเกิน 100 เมตร ครบ 3 ครั้ง</li>
+            </ul>
+          </div>
+          <div class="accuracy-card">
+            <div class="accuracy-card-header">
+              <h3>ระบบคัดกรองสัญญาณดาวเทียม (GPS Guardrail)</h3>
+              <span class="accuracy-card-badge">Outlier Rejection</span>
+            </div>
+            <div class="metric-number">100.0%</div>
+            <p class="accuracy-card-title">ตัดสัญญาณรบกวน &gt; 100 เมตร ทิ้งอัตโนมัติ</p>
+            <ul>
+              <li>คัดกรองสัญญาณดาวเทียมที่แกว่งหรือสะท้อนในอาคารทิ้ง 100% ป้องกันหมุดวาร์ปกระโดด</li>
+              <li>บังคับใช้ <code>enableHighAccuracy: true</code> ดึงพิกัดจากชิปฮาร์ดแวร์ GNSS โดยตรง</li>
+              <li>ผ่านชุดทดสอบอัตโนมัติครบ <strong>65/65 ข้อ</strong> (34 Django + 12 Unit + 19 Playwright Browser)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="accuracy-radar-col">
+          <div class="accuracy-radar-header">
+            <h3>เรดาร์สัญญาณดาวเทียมจำลอง (GPS Scatter Field)</h3>
+            <div class="radar-env-buttons">
+              <button type="button" data-gps-env="outdoor" aria-pressed="true">กลางแจ้ง</button>
+              <button type="button" data-gps-env="indoor" aria-pressed="false">ในอาคาร</button>
+            </div>
+          </div>
+          <div id="gps-precision">
+            <canvas id="gps-precision-canvas" width="340" height="340"></canvas>
+          </div>
+          <div class="radar-legend">
+            <span><i class="legend-green"></i> สัญญาณแม่นยำ (≤10ม.)</span>
+            <span><i class="legend-red"></i> คลาดเคลื่อน (&gt;100ม. กรองทิ้ง)</span>
+          </div>
+          <div class="radar-stats-bar">
+            <div class="radar-stat-item">
+              <small>ผ่านเกณฑ์</small>
+              <strong id="gps-prec-accepted">0</strong>
+            </div>
+            <div class="radar-stat-item">
+              <small>กรองทิ้ง</small>
+              <strong id="gps-prec-rejected">0</strong>
+            </div>
+            <div class="radar-stat-item">
+              <small>ระยะ ≤10 ม.</small>
+              <strong id="gps-prec-within">—</strong>
+            </div>
+            <button type="button" id="gps-prec-reset">รีเซ็ต</button>
+          </div>
+        </div>
+      </div>
+      <aside class="speaker-note" hidden>สไลด์นี้แสดงความน่าเชื่อถือของการประมวลผลพิกัด ทั้งความแม่นยำระดับ sub-meter และการกรองสัญญาณรบกวนอัตโนมัติ</aside>
+    </section>
+
+    <!-- Slide 14: Live Product Demo Launch -->
+    <section class="slide product-slide product-launch" id="slide-14" data-title="เข้าสู่การสาธิตระบบจริง" data-source="code" aria-labelledby="title-14">
+      <div class="launch-copy">
+        <p class="product-eyebrow">LIVE PRODUCT DEMONSTRATION</p>
+        <h2 id="title-14">จากเรื่องที่แจ้ง<br>สู่การแก้ไขที่<br><em>ติดตามได้จริง</em></h2>
+        <p>พร้อมเข้าสู่การสาธิตระบบจริงในแต่ละบทบาท ทั้งประชาชน เจ้าหน้าที่ และผู้บริหาร</p>
+        <div class="launch-actions">
+          <a id="launch-live" href="https://phetpri.realfdev.online/login/" target="_blank" rel="noopener noreferrer" style="background:#087f5b;color:#fff;font-weight:600;border-color:#087f5b;">เปิดเว็บไซต์ระบบจริง ↗</a>
+        </div>
+        <div class="launch-qr-card">
+          <div class="launch-qr-media">
+            <img src="assets/qr-phetpri.svg" alt="QR Code สำหรับเข้าใช้งานระบบ PhetpriReport" width="96" height="96" class="launch-qr-img">
+            <button type="button" class="launch-qr-zoom-btn" id="open-qr-dialog" aria-label="ขยาย QR Code">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              ขยาย
+            </button>
+          </div>
+          <div class="launch-qr-info">
+            <span class="launch-qr-badge">SCAN FOR MOBILE</span>
+            <strong>สแกนเพื่อทดลองใช้บนมือถือ</strong>
+            <p>สำหรับอาจารย์และคณะกรรมการ เปิดระบบทดลองจริงได้ทันที</p>
+            <a href="https://phetpri.realfdev.online/" target="_blank" rel="noopener noreferrer" class="launch-qr-url">phetpri.realfdev.online/ ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="launch-preview">
+        <div class="launch-role-list" role="group" aria-label="เลือกบทบาทสำหรับตัวอย่าง">
+          <button type="button" data-launch-role="citizen" aria-pressed="true">ประชาชน</button>
+          <button type="button" data-launch-role="officer" aria-pressed="false">เจ้าหน้าที่</button>
+          <button type="button" data-launch-role="admin" aria-pressed="false">ผู้ดูแล</button>
+        </div>
+        <div class="launch-screen">
+          <img id="launch-screen-image" src="assets/screens/citizen-profile-desktop.webp" alt="ตัวอย่างหน้าบัญชีประชาชนจาก UI ระบบ" width="1440" height="900">
+          <span class="launch-screen-label">UI จากระบบจริง · ข้อมูลตัวอย่าง</span>
+        </div>
+        <div class="launch-role-description">
+          <strong id="launch-role-title">ประชาชน</strong>
+          <p id="launch-role-description">แจ้งปัญหา แล้วกลับมาดูความคืบหน้าของเรื่องที่ตนเองแจ้ง</p>
+        </div>
+      </div>
+      <aside class="speaker-note" hidden>สไลด์ส่งท้ายสำหรับเข้าสู่ Live Demo เชิญอาจารย์และคณะกรรมการสแกน QR Code เพื่อเปิดเว็บทดลองใช้งานไปพร้อมกัน</aside>
+    </section>
+
+  </main>
+
+  <!-- Footer Controls -->
+  <footer class="presentation-controls" aria-label="การเปลี่ยนสไลด์">
+    <button class="square-button" type="button" id="previous-button" aria-label="สไลด์ก่อนหน้า"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7"/></svg></button>
+    <div class="progress-track" role="progressbar" aria-label="ความคืบหน้าการนำเสนอ" aria-valuemin="1" aria-valuemax="14" aria-valuenow="1"><span id="progress-fill"></span></div>
+    <span class="slide-count" id="slide-count" aria-live="polite">01 / 14</span>
+    <button class="square-button" type="button" id="next-button" aria-label="สไลด์ถัดไป"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m10 5 7 7-7 7"/></svg></button>
+  </footer>
+  <div class="help-row">
+    <button type="button" id="notes-button" aria-pressed="false">บันทึกผู้บรรยาย</button>
+    <span>ใช้ปุ่ม ← → หรือปัดซ้าย–ขวาเพื่อเปลี่ยนสไลด์</span>
+    <button type="button" id="sources-button">ที่มาและข้อมูล</button>
+  </div>
+  <aside class="notes-panel" id="notes-panel" aria-label="บันทึกผู้บรรยาย" hidden><p id="notes-copy"></p></aside>
+  <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
+
+  <!-- Table of Contents Dialog -->
+  <dialog id="contents-dialog" aria-labelledby="contents-title">
+    <header class="dialog-header">
+      <h2 id="contents-title">สารบัญสไลด์ Final Pitching</h2>
+      <button class="square-button close-dialog" type="button" aria-label="ปิดสารบัญ"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+    </header>
+    <ol id="contents-list"></ol>
+  </dialog>
+
+  <!-- Benchmark Details Dialog -->
+  <dialog id="bench-detail-dialog" class="analysis-detail-dialog" aria-labelledby="bench-detail-title">
+    <header class="analysis-dialog-header">
+      <h2 id="bench-detail-title">รายละเอียดผลทดสอบ Real-Time GPS (Automated Benchmark)</h2>
+      <button type="button" class="analysis-close" id="close-bench-detail">ปิดรายละเอียด ×</button>
+    </header>
+    <div class="benchmark-method-body">
+      <p><strong>สภาพแวดล้อมการทดสอบ:</strong> Playwright Dual-Browser Automation บน Chromium (จำลอง Browser เจ้าหน้าที่และผู้แจ้งพร้อมกันบน Localhost และฐานข้อมูล SQLite แยก)</p>
+      <div class="analysis-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>จุดพิกัด</th>
+              <th>พิกัด (lat, lng)</th>
+              <th>ดีเลย์ก่อนแก้ (Before)</th>
+              <th>ดีเลย์หลังแก้ (After)</th>
+              <th>ความเร็วที่เพิ่มขึ้น</th>
+              <th>ความแม่นยำระยะทาง</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>WP1</td>
+              <td>13.1120, 99.9420</td>
+              <td>7,825 ms (429: 10 ครั้ง)</td>
+              <td><strong>792 ms</strong> (429: 0 ครั้ง)</td>
+              <td>เร็วขึ้น 9.9 เท่า</td>
+              <td>99.998%</td>
+            </tr>
+            <tr>
+              <td>WP2</td>
+              <td>13.1140, 99.9440</td>
+              <td>10,014 ms (429: 10 ครั้ง)</td>
+              <td><strong>620 ms</strong> (429: 0 ครั้ง)</td>
+              <td>เร็วขึ้น 16.2 เท่า</td>
+              <td>99.997%</td>
+            </tr>
+            <tr>
+              <td>WP3</td>
+              <td>13.1160, 99.9460</td>
+              <td>9,923 ms (429: 10 ครั้ง)</td>
+              <td><strong>342 ms</strong> (429: 0 ครั้ง)</td>
+              <td>เร็วขึ้น 29.0 เท่า</td>
+              <td>99.997%</td>
+            </tr>
+            <tr>
+              <td>WP4</td>
+              <td>13.1180, 99.9480</td>
+              <td>10,105 ms (429: 9 ครั้ง)</td>
+              <td><strong>146 ms</strong> (429: 0 ครั้ง)</td>
+              <td>เร็วขึ้น 69.2 เท่า</td>
+              <td>99.997%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:16px;"><strong>สรุปผลการปรับปรุง:</strong> ดีเลย์เฉลี่ยลดลงจาก 9,467 ms (9.47 วินาที) เหลือเพียง 475 ms (0.48 วินาที) หรือเร็วขึ้นกว่าเดิม 19.9 เท่า (ลดดีเลย์ 95.0%) และขจัดปัญหา HTTP 429 ได้ 100%</p>
+    </div>
+  </dialog>
+
+  <!-- Sources Dialog -->
+  <dialog id="sources-dialog" aria-labelledby="sources-title">
+    <header class="dialog-header">
+      <h2 id="sources-title">แหล่งข้อมูลและวิธีการวัดผล</h2>
+      <button class="square-button close-dialog" type="button" aria-label="ปิดแหล่งข้อมูล"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+    </header>
+    <div class="sources-body">
+      <h3>1. แบบสำรวจความต้องการผู้ใช้</h3>
+      <p>กลุ่มตัวอย่าง 38 รายในพื้นที่อำเภอเมืองเพชรบุรี (23 อาศัยในเขตเทศบาล, 15 สัญจรประจำ) พบ 94.4% มีปัญหาในการติดตามเรื่อง และ 78.9% ต้องการระบบแจ้งเตือนอัตโนมัติ</p>
+      <h3>2. สถาปัตยกรรมและโค้ดระบบจริง</h3>
+      <p>พัฒนาด้วย Django 5.2, Python, MapLibre GL, Web Push และ SQLite/MySQL ตามโครงสร้างใน codebase phetpri_project</p>
+      <h3>3. การทดสอบ Real-Time GPS Tracking</h3>
+      <p>วัดผลแบบ End-to-End ด้วย Playwright Chromium จำลองการเคลื่อนที่จริงและวัดเวลาที่หมุดแผนที่ของผู้แจ้งอัปเดตแบบมิลลิวินาที</p>
+    </div>
+  </dialog>
+
+  <!-- QR Zoom Modal Dialog -->
+  <dialog id="qr-dialog" class="analysis-detail-dialog qr-modal-dialog" aria-labelledby="qr-dialog-title">
+    <header class="dialog-header">
+      <h2 id="qr-dialog-title">สแกนเปิดใช้งาน PhetpriReport</h2>
+      <button class="square-button close-dialog" type="button" id="close-qr-dialog" aria-label="ปิดรายละเอียด QR Code">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg>
+      </button>
+    </header>
+    <div class="qr-dialog-body">
+      <div class="qr-large-frame">
+        <img src="assets/qr-phetpri.svg" alt="QR Code ขนาดใหญ่สำหรับเปิดเว็บแอพ" width="280" height="280">
+      </div>
+      <p class="qr-dialog-desc">ใช้กล้องสมาร์ทโฟนหรือแท็บเล็ตสแกนเพื่อเปิดใช้งาน Web Application ได้ทันที</p>
+      <a href="https://phetpri.realfdev.online/" target="_blank" rel="noopener noreferrer" class="qr-dialog-link">phetpri.realfdev.online/ ↗</a>
+    </div>
+  </dialog>
+</body>
+</html>

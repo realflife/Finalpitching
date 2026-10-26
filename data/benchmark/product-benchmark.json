@@ -1,0 +1,409 @@
+{
+  "dateLabel": "8 ต.ค. 2569",
+  "environment": "Local Django development server + SQLite fixtures; Linux/headless Chromium; Browser plugin not available, Playwright used",
+  "navigation": {
+    "measuredAt": "2026-10-08T03:09:17.714Z",
+    "target": "http://127.0.0.1:8127",
+    "browser": "151.0.7922.34",
+    "platform": "linux",
+    "method": "Navigation Timing DOMContentLoaded; fresh browser context and disabled cache for every sample; sequential visits; no login or submission",
+    "profiles": [
+      {
+        "id": "desktop",
+        "label": "Desktop",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "cpuSlowdown": 1,
+        "network": "Runner connection, no artificial throttle"
+      },
+      {
+        "id": "mobile",
+        "label": "Mobile simulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "cpuSlowdown": 4,
+        "latencyMs": 150,
+        "downloadMbps": 1.6,
+        "uploadMbps": 0.75,
+        "network": "CDP simulated constrained network; not a physical phone"
+      }
+    ],
+    "samples": [
+      {
+        "profile": "desktop",
+        "page": "login",
+        "path": "/login/",
+        "trial": 1,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/login/",
+        "metrics": {
+          "domReadyMs": 683,
+          "firstByteMs": 42,
+          "htmlTransferBytes": 70637
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "desktop",
+        "page": "login",
+        "path": "/login/",
+        "trial": 2,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/login/",
+        "metrics": {
+          "domReadyMs": 580,
+          "firstByteMs": 9,
+          "htmlTransferBytes": 70637
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "desktop",
+        "page": "login",
+        "path": "/login/",
+        "trial": 3,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/login/",
+        "metrics": {
+          "domReadyMs": 924,
+          "firstByteMs": 9,
+          "htmlTransferBytes": 70637
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "desktop",
+        "page": "track",
+        "path": "/report/track/",
+        "trial": 1,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/report/track/",
+        "metrics": {
+          "domReadyMs": 544,
+          "firstByteMs": 11,
+          "htmlTransferBytes": 67856
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "desktop",
+        "page": "track",
+        "path": "/report/track/",
+        "trial": 2,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/report/track/",
+        "metrics": {
+          "domReadyMs": 662,
+          "firstByteMs": 7,
+          "htmlTransferBytes": 67856
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "desktop",
+        "page": "track",
+        "path": "/report/track/",
+        "trial": 3,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/report/track/",
+        "metrics": {
+          "domReadyMs": 546,
+          "firstByteMs": 8,
+          "htmlTransferBytes": 67856
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "mobile",
+        "page": "login",
+        "path": "/login/",
+        "trial": 1,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/login/",
+        "metrics": {
+          "domReadyMs": 2958,
+          "firstByteMs": 9,
+          "htmlTransferBytes": 70637
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "mobile",
+        "page": "login",
+        "path": "/login/",
+        "trial": 2,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/login/",
+        "metrics": {
+          "domReadyMs": 2936,
+          "firstByteMs": 8,
+          "htmlTransferBytes": 70637
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "mobile",
+        "page": "login",
+        "path": "/login/",
+        "trial": 3,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/login/",
+        "metrics": {
+          "domReadyMs": 3029,
+          "firstByteMs": 14,
+          "htmlTransferBytes": 70637
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "mobile",
+        "page": "track",
+        "path": "/report/track/",
+        "trial": 1,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/report/track/",
+        "metrics": {
+          "domReadyMs": 2903,
+          "firstByteMs": 9,
+          "htmlTransferBytes": 67856
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "mobile",
+        "page": "track",
+        "path": "/report/track/",
+        "trial": 2,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/report/track/",
+        "metrics": {
+          "domReadyMs": 2883,
+          "firstByteMs": 8,
+          "htmlTransferBytes": 67856
+        },
+        "ok": true,
+        "pageErrors": []
+      },
+      {
+        "profile": "mobile",
+        "page": "track",
+        "path": "/report/track/",
+        "trial": 3,
+        "httpStatus": 200,
+        "finalUrl": "http://127.0.0.1:8127/report/track/",
+        "metrics": {
+          "domReadyMs": 2884,
+          "firstByteMs": 8,
+          "htmlTransferBytes": 67856
+        },
+        "ok": true,
+        "pageErrors": []
+      }
+    ]
+  },
+  "summaries": [
+    {
+      "profile": "desktop",
+      "page": "login",
+      "attempts": 3,
+      "successful": 3,
+      "medianMs": 683,
+      "minMs": 580,
+      "maxMs": 924
+    },
+    {
+      "profile": "desktop",
+      "page": "track",
+      "attempts": 3,
+      "successful": 3,
+      "medianMs": 546,
+      "minMs": 544,
+      "maxMs": 662
+    },
+    {
+      "profile": "mobile",
+      "page": "login",
+      "attempts": 3,
+      "successful": 3,
+      "medianMs": 2958,
+      "minMs": 2936,
+      "maxMs": 3029
+    },
+    {
+      "profile": "mobile",
+      "page": "track",
+      "attempts": 3,
+      "successful": 3,
+      "medianMs": 2884,
+      "minMs": 2883,
+      "maxMs": 2903
+    }
+  ],
+  "functional": {
+    "framework": "Django 5.2.15",
+    "python": "3.10.12",
+    "database": "Isolated SQLite in-memory test database",
+    "method": "Existing tracking dashboard and profile test suites with fictional fixtures; no production writes; this is functional coverage, not AI accuracy or concurrency testing",
+    "testsRun": 32,
+    "records": [
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_ambiguous_guest_email_fails_without_exposing_reports",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_csrf_headers_and_session_switch",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_empty_account_and_filtered_empty_have_different_actions",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_every_role_tracks_only_own_reports",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_filters_and_five_steps_match_without_changing_summary_counts",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_guest_get_keeps_form_and_basic_post_results",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_guest_staff_lookup_wrong_credentials_and_empty_history",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_invalid_filters_pages_refresh_and_stable_ties",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_logged_in_immediate_owned_scope_and_counts",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_logged_in_post_redirects_without_cross_account_lookup",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_missing_fields_and_zero_coordinates",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_pagination_returns_each_owned_report_once",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_related_data_prefetched_and_map_has_existing_owner_link",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_single_dialog_safe_templates_fallback_links_and_no_write_actions",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_staff_admin_result_visibility_matches_existing_detail",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_tracking_dashboard.TrackingDashboardTests.test_unapproved_results_not_exposed_to_citizen_even_in_collapsed_html",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_account_and_work_precede_notifications_and_personal_details",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_admin_profile_still_scopes_personal_reports_and_shows_manage",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_each_filter_matches_actual_status_and_whole_scope_counts",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_empty_group_and_private_cache_headers",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_invalid_filters_and_page_fallback",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_map_is_inside_location_section_and_google_is_secondary",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_missing_and_zero_coordinates",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_notification_return_preserves_profile_filters_and_rejects_external_urls",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_pagination_returns_every_report_once",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_password_verification_and_logout_keep_original_flow",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_people_newest_first_and_accepted_wording",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_private_map_permission_is_separate_from_public_incident_pin",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_receive_post_csrf_and_submit_uploaded_image",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_report_card_relations_are_prefetched",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_staff_personal_tab_does_not_include_assigned_or_other_reports",
+        "outcome": "passed"
+      },
+      {
+        "test": "main_phetpri.tests_profile_ui.ProfileUITests.test_staff_scope_counts_priority_and_primary_actions",
+        "outcome": "passed"
+      }
+    ]
+  },
+  "liveCheck": {
+    "target": "https://phetpri.realfdev.online",
+    "measuredAt": "2026-10-08T03:07:21.847Z",
+    "attempts": 12,
+    "httpStatuses": [
+      530
+    ],
+    "applicationTimingAvailable": false,
+    "note": "HTTP 530 observed from the measurement runner; no production performance result available."
+  },
+  "limitations": [
+    "Exploratory sample: 3 fresh-context visits per page/profile, 12 total; medians and ranges, no percentile or SLA claims.",
+    "DOM ready (DOMContentLoaded) is not full image/map load, LCP, INP or a real user study.",
+    "Local origin on loopback and simulated CPU/network are not production hosting or physical mobile hardware.",
+    "32 existing functional tests cover selected profile/tracking flows; this is not AI/GPS accuracy, security certification or concurrent-load capacity."
+  ]
+}

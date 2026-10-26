@@ -1,0 +1,143 @@
+{
+  "reports": [
+    {
+      "key": "daily",
+      "title": "รายงานการแจ้งปัญหาประจำวัน",
+      "pdfPage": 38,
+      "reportPage": 91,
+      "table": "3-6"
+    },
+    {
+      "key": "monthly",
+      "title": "รายงานการแจ้งปัญหาประจำเดือน",
+      "pdfPage": 39,
+      "reportPage": 92,
+      "table": "3-7"
+    },
+    {
+      "key": "monthly-statistics",
+      "title": "รายงานสถิติการแจ้งปัญหาประจำเดือน",
+      "pdfPage": 40,
+      "reportPage": 93,
+      "table": "3-8"
+    },
+    {
+      "key": "area",
+      "title": "รายงานพื้นที่ปัญหา",
+      "pdfPage": 42,
+      "reportPage": 95,
+      "table": "3-10"
+    },
+    {
+      "key": "status",
+      "title": "รายงานสถานะการดำเนินงาน",
+      "pdfPage": 44,
+      "reportPage": 97,
+      "table": "3-12"
+    }
+  ],
+  "screens": [
+    {
+      "key": "home",
+      "title": "หน้าแรกและภาพรวมปัญหา",
+      "role": "ประชาชน",
+      "path": "/",
+      "source": "Current Django UI with isolated fictional fixtures",
+      "viewports": {
+        "desktop": [
+          1440,
+          900
+        ],
+        "mobile": [
+          390,
+          844
+        ]
+      }
+    },
+    {
+      "key": "report",
+      "title": "แจ้งปัญหาสาธารณะ",
+      "role": "ประชาชน",
+      "path": "/report/",
+      "source": "Current Django UI with isolated fictional fixtures",
+      "viewports": {
+        "desktop": [
+          1440,
+          900
+        ],
+        "mobile": [
+          390,
+          844
+        ]
+      }
+    },
+    {
+      "key": "citizen-profile",
+      "title": "บัญชีและเรื่องที่ประชาชนแจ้ง",
+      "role": "ประชาชน",
+      "path": "/profile/",
+      "source": "Current Django UI with isolated fictional fixtures",
+      "viewports": {
+        "desktop": [
+          1440,
+          900
+        ],
+        "mobile": [
+          390,
+          844
+        ]
+      }
+    },
+    {
+      "key": "officer-profile",
+      "title": "งานที่เจ้าหน้าที่รับผิดชอบ",
+      "role": "เจ้าหน้าที่",
+      "path": "/profile/",
+      "source": "Current Django UI with isolated fictional fixtures",
+      "viewports": {
+        "desktop": [
+          1440,
+          900
+        ],
+        "mobile": [
+          390,
+          844
+        ]
+      }
+    },
+    {
+      "key": "detail",
+      "title": "รายละเอียดและความคืบหน้าของเรื่อง",
+      "role": "ประชาชน",
+      "path": "/report/detail/DEMO2569001/",
+      "source": "Current Django UI with isolated fictional fixtures",
+      "viewports": {
+        "desktop": [
+          1440,
+          900
+        ],
+        "mobile": [
+          390,
+          844
+        ]
+      }
+    },
+    {
+      "key": "dashboard",
+      "title": "แดชบอร์ดผู้ดูแลระบบ",
+      "role": "ผู้ดูแล",
+      "path": "/manage/",
+      "source": "Current Django UI with isolated fictional fixtures",
+      "viewports": {
+        "desktop": [
+          1440,
+          900
+        ],
+        "mobile": [
+          390,
+          844
+        ]
+      }
+    }
+  ]
+}
